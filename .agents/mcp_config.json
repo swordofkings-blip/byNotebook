@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gemini-notebook": {
+      "command": "notebooklm-mcp",
+      "args": [],
+      "env": {
+        "NOTEBOOKLM_HL": "ja"
+      }
+    }
+  }
+}

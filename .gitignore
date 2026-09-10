@@ -1,0 +1,11 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+.vscode/
+.idea/
+
+# Environment / Credentials (念のため)
+*.env
+*.env.*
