@@ -16,14 +16,21 @@ byNotebook/
 │   ├── _template/                   # ★ 新規世界観作成用のひな形
 │   │   ├── system_prompt.md         # チャット設定用プロンプト（進行ルール・出力形式）
 │   │   ├── world_setting.md         # 世界観・舞台背景
-│   │   └── character_sheets.md      # 登場人物設定シート
+│   │   ├── character_sheets.md      # 登場人物設定シート
+│   │   └── memories_and_lore.md     # 相互認知マップ・情報格差ロア
 │   └── <world_name>/                # 各世界観ごとの管理フォルダ
 │       ├── config.json              # ノートブックID等のメタデータ
 │       ├── system_prompt.md         # チャットカスタム指示
 │       ├── world_setting.md         # 世界観設定
 │       ├── character_sheets.md      # キャラ設定
+│       ├── memories_and_lore.md     # 相互認知・ロアシート
 │       └── prologue.md              # プロローグ / エピソード
-└── AGENTS.md                        # 本ファイル
+├── user/
+│   └── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
+├── ONE_PAGER.md                     # 友達向けペライチ紹介文
+├── DEMO_PLAY_LOG.md                 # 実際の対話実演ログ
+├── README.md                        # GitHub用メインREADME
+└── AGENTS.md                        # 本ファイル（エージェント運用マニュアル）
 ```
 
 ---
@@ -37,15 +44,17 @@ byNotebook/
 2. `worlds/_template/` を参考に、ユーザーの要望に合わせた以下のファイルを作成する：
    - `system_prompt.md`（以下の必須ルールを盛り込んだチャット指示）:
      - プレイヤーの入力形式（地の文、`＠キャラ名:` によるなりきり発言、未入力時の代行展開許可）
+     - **純粋なライトノベル形式**: メタラベル（【情景描写】等）や箇条書き選択肢、引用番号（`[1]`等）の完全禁止
+     - **対話の掛け合い（インターリーブ描写）**: 複数行入力時にオウム返しせず、セリフの合間に仕草・反応を挟んでテンポよく描写し、最後を手厚く展開
+     - **未知の情報への言及制限（全知化の防止）**: 居場所や秘密を最初から知っている体で動かず、「尋ねる」「調べる」「委ねる」の動線を義務化
+     - **名前アンロックシステム**: プレイヤー未認知のキャラは見た目の仮名（「銀髪の少女」等）で描写し、名乗られた瞬間に正式名称へアンロック
+     - **誤字・脱字・タイポの自動補正**: ユーザーの誤変換や表記揺れを文脈から補完して正しい名称で出力
+     - **特殊スラッシュコマンド**: `/日記`, `/登場`, `/心理`, `/幕間`, `/イラスト`, `/スキップ`
      - スローペース制御（通常は数秒〜数分、完結・移動・指示時のみスキップ＋着地時減速）
-     - 間接描写（視線、沈黙、吐息、仕草、周囲の空気感の描写）
-     - **キャラクターごとの個別知識・情報格差の厳守（他者の秘密や裏の出来事を知った気になって喋る全知化の防止）**
-     - オウム返し・要約癖の防止
-     - 過去の記憶・約束の想起（長期記憶ロアシートとの連動）
-     - 【情景・間接描写】【キャラセリフ】【次の状況/問いかけ】の出力フォーマット
+     - 衣装・装備の固定管理
    - `world_setting.md`（世界観、用語、ルール）
    - `character_sheets.md`（主人公・ヒロイン・NPCの性格・口調例）
-   - `memories_and_lore.md`（長期記憶・関係性ステータス・情報格差リスト）
+   - `memories_and_lore.md`（相互認知マップ・情報格差リスト・初期衣装）
    - `prologue.md`（初期シチュエーション）
 
 ### Step 2: NotebookLM にノートブックを作成
@@ -73,6 +82,7 @@ nlm create notebook "物語を紡ぐ：<タイトル>"
 ```powershell
 nlm source add <notebook_id> --file .\worlds\<world_name>\world_setting.md --title "世界観設定：<タイトル>" --wait
 nlm source add <notebook_id> --file .\worlds\<world_name>\character_sheets.md --title "登場人物設定：<キャラ名>" --wait
+nlm source add <notebook_id> --file .\worlds\<world_name>\memories_and_lore.md --title "長期記憶・相互認知マップ：<タイトル>" --wait
 nlm source add <notebook_id> --file .\worlds\<world_name>\prologue.md --title "プロローグ：<シーン名>" --wait
 ```
 
@@ -90,13 +100,25 @@ nlm chat configure <notebook_id> --goal custom --prompt "$prompt" --response-len
 
 ---
 
-## 3. 既存ノートブックの更新・ログ追加手順
+## 3. 既存ノートブックの更新・ロア同期手順
 
-物語が進んで新たな設定・エピソードが追加された場合：
+物語が進んで新たな設定・エピソードが追加されたり、長期記憶（ロアシート）を更新する場合：
 
-1. ローカルの `worlds/<world_name>/` 内のファイルを編集、または `story_log_chX.md` などの新ファイルを作成。
-2. `nlm source add <notebook_id> --file <ファイルパス> --title "<タイトル>" --wait` を実行して反映。
-3. 必要に応じてチャットプロンプト（`nlm chat configure`）を更新。
+### ① プロンプト設定の更新
+```powershell
+$prompt = Get-Content -Raw .\worlds\<world_name>\system_prompt.md
+nlm chat configure <notebook_id> --goal custom --prompt "$prompt" --response-length longer
+```
+
+### ② ロアシート（ソース）の入れ替え
+古いソースを削除し、最新のロアシートをアップロードする。
+```powershell
+# 古いソースの削除（--confirm で確認スキップ）
+nlm source delete <old_source_id> --confirm
+
+# 新しいロアシートの追加
+nlm source add <notebook_id> --file .\worlds\<world_name>\memories_and_lore.md --title "長期記憶・相互認知マップ：<タイトル>" --wait
+```
 
 ---
 
@@ -105,3 +127,5 @@ nlm chat configure <notebook_id> --goal custom --prompt "$prompt" --response-len
 * **認証エラー（401 / Profile not found）が発生した場合**:
   - `nlm login --check` で認証状態を確認。
   - 認証が切れている場合は、ユーザーにターミナルで `nlm login` を実行してGoogleログインするよう依頼する。
+* **ソース削除時の注意**:
+  - `nlm source delete` コマンドには notebook_id ではなく **source_id** を直接指定すること（一括削除時は `--confirm` を付与）。
