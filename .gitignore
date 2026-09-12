@@ -9,3 +9,7 @@ Thumbs.db
 # Environment / Credentials (念のため)
 *.env
 *.env.*
+
+worlds/failed_summoner
+worlds/teachers_holiday
+worlds/familiar_sequel
