@@ -123,7 +123,7 @@ NotebookLMの画面上ではリンクにカーソルを乗せた時（ホバー�
 一番簡単なのは、お使いのAIコーディングアシスタントのチャット欄に、本リポジトリのURLを貼って丸投げすることです。
 
 > **AIへの指示プロンプト**:  
-> 「https://github.com/swordofkings-blip/byNotebook を参考にして、この対話型ノベル環境が自分のPCで使えるように導入・セットアップして」
+> 「https://github.com/swordofkings-blip/byNotebook をクローンして、この環境が使えるようにセットアップして」
 
 AIエージェントがツールのインストール（`notebooklm-mcp-cli`）から設定まで自動で案内・実行してくれます。  
 ※Googleアカウントの認証（`nlm login`）だけ確認を求められるので、画面の指示に従ってブラウザログインしてください。
