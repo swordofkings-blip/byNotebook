@@ -55,10 +55,10 @@ byNotebook/
 ## 🚀 クイックスタート
 
 ### 1. 前提条件のインストール
-NotebookLMをCLI/MCPから操作するツールをインストールします。
+NotebookLMをCLI/MCPから操作するツールをインストールします（Python環境が必要です）。
 
 ```bash
-npm install -g notebooklm-mcp-cli
+pip install notebooklm-mcp-cli
 ```
 
 ### 2. Google認証
