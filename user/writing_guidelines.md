@@ -196,7 +196,7 @@ graph LR
 ## 8. トラブルシューティング（よくある不具合と対処法）
 
 ### 【重要】推奨動作モデル（Gemini Flash以上）
-Gemini上で物語を遊ぶ際は、**その時点の最新の「Gemini Flash」以上（Gemini Flash / Gemini Pro / Advanced等）**を選択してください。
+Gemini上で物語を遊ぶ際は、**その時点の最新の「Gemini Flash」以上（Gemini Flash / Gemini Pro等）**を選択してください。
 * **Flash-Liteは非推奨（NG）**: 「Gemini Flash-Lite」等の超軽量モデルは扱えるコンテキストサイズ（トークン容量）が小さく、長編ロールプレイでは設定の参照漏れや記憶の喪失・混同が早期に発生しやすくなります。安定した長編描写・整合性を楽しむにはFlash以上のモデルをご利用ください。
 
 ### ① 主人公名が `{{user}}` や指定文のまま出力されてしまう
