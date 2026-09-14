@@ -45,7 +45,6 @@ byNotebook/
 │       └── prologue.md
 ├── user/
 │   └── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
-├── ONE_PAGER.md                     # プロジェクト概要ペライチ
 ├── DEMO_PLAY_LOG.md                 # 実際の対話実演ログ
 └── README.md                        # 本ファイル
 ```

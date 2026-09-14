@@ -28,7 +28,6 @@ byNotebook/
 │       └── prologue.md              # プロローグ / エピソード
 ├── user/
 │   └── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
-├── ONE_PAGER.md                     # 友達向けペライチ紹介文
 ├── DEMO_PLAY_LOG.md                 # 実際の対話実演ログ
 ├── README.md                        # GitHub用メインREADME
 └── AGENTS.md                        # 本ファイル（エージェント運用マニュアル）
