@@ -36,13 +36,22 @@ byNotebook/
 │   │   ├── world_setting.md         # 世界観・舞台背景
 │   │   ├── character_sheets.md      # 登場人物設定シート
 │   │   └── memories_and_lore.md     # 相互認知マップ・情報格差ロア
-│   └── helloworld/                  # 検証・実証済みサンプルワールド (SF・アンドロイド)
-│       ├── config.json              # ノートブックID等のメタデータ
+│   ├── helloworld/                  # 検証・実証済みサンプルワールド (SF・アンドロイド)
+│   │   ├── config.json              # ノートブックID等のメタデータ
+│   │   ├── system_prompt.md
+│   │   ├── world_setting.md
+│   │   ├── character_sheets.md
+│   │   ├── memories_and_lore.md
+│   │   └── prologue.md
+│   └── liar/                        # 🥀 サナトリウム対話ミステリー（ヨルシカ『盗作』『創作』二次創作）
+│       ├── README.md                # ワールド遊び方・導入ガイド
 │       ├── system_prompt.md
 │       ├── world_setting.md
 │       ├── character_sheets.md
 │       ├── memories_and_lore.md
-│       └── prologue.md
+│       ├── writing_and_world_lore.md
+│       ├── prologue.md
+│       └── overview.md
 ├── user/
 │   └── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
 ├── DEMO_PLAY_LOG.md                 # 実際の対話実演ログ
