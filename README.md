@@ -53,7 +53,8 @@ byNotebook/
 │       ├── prologue.md
 │       └── overview.md
 ├── user/
-│   └── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
+│   ├── writing_guidelines.md        # ユーザー向け執筆・カスタマイズガイド
+│   └── custom_gem_guide.md          # 💎 他人に遊んでもらうための「カスタムGem」共有ガイド
 ├── DEMO_PLAY_LOG.md                 # 実際の対話実演ログ
 └── README.md                        # 本ファイル
 ```
